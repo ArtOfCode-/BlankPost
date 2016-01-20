@@ -11,37 +11,37 @@ You will need:
 Have a read of the guide below. If you're having trouble, drop me a line at `hello@artofcode.co.uk`.
 
 1. **Download**  
-Clone the repository (or download it from GH):
+ Clone the repository (or download it from GH):
 
-    git clone https://github.com/ArtOfCode-/BlankPost
+     git clone https://github.com/ArtOfCode-/BlankPost
     
-That was an easy step! :)
+ That was an easy step! :)
 
 2. **Configure**  
-You'll need to fill in some details here. In the `includes/` directory, you'll find a file called `site_config_example.ini`.
-You should rename it to `site_config.ini`. Open it in a text editor, and scroll down to the line that contains this:
+ You'll need to fill in some details here. In the `includes/` directory, you'll find a file called `site_config_example.ini`.
+ You should rename it to `site_config.ini`. Open it in a text editor, and scroll down to the line that contains this:
 
-    [database]
+     [database]
     
-That's the database details section. Just after that, there are a number of settings you'll need to change. In between the
-quote marks, you will need to fill in your database host, username, password, and name, after their respective titles.
-(Ask your web host if you don't know these details.) When you're done, the section should look something like this:
+ That's the database details section. Just after that, there are a number of settings you'll need to change. In between the
+ quote marks, you will need to fill in your database host, username, password, and name, after their respective titles.
+ (Ask your web host if you don't know these details.) When you're done, the section should look something like this:
 
-    [database]
-    ; [STRING] The database host.
-    HOST = "sql.mywebhost.com"
+     [database]
+     ; [STRING] The database host.
+     HOST = "sql.mywebhost.com"  
 
-    ; [STRING] The database username.
-    USER = "bob"
+     ; [STRING] The database username.
+     USER = "bob"
 
-    ; [STRING] The database identification password.
-    PASS = "a9xD%vv&7"
+     ; [STRING] The database identification password.
+     PASS = "a9xD%vv&7"
 
-    ; [STRING] The database name.
-    NAME = "blankpost"
+     ; [STRING] The database name.
+     NAME = "blankpost"
     
-That's the really basic configuration done - there are a number of other settings in this file which you can also fill in
-or change to change the look and feel of your site. There are comments in the file to tell you what each setting is.
+ That's the really basic configuration done - there are a number of other settings in this file which you can also fill in
+ or change to change the look and feel of your site. There are comments in the file to tell you what each setting is.
 
 3. **Upload**  
 Now you upload everything to your server. You'll need to put the `includes/` directory **above** public_html - that's 
