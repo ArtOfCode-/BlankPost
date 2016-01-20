@@ -1,6 +1,15 @@
 <?php
 
-    // Version 1.5.23
+    /**
+     * BLANKPOST — Base Library
+     *
+     * Author: ArtOfCode
+     * Copyright (c) 2016, ArtOfCode
+     *
+     * Licensed under the MIT license: http://opensource.org/licenses/MIT
+     *
+     * Version: 1.7.22
+     */
 
 	session_start();
 	
@@ -50,6 +59,8 @@
             header("Location: /500.php");
         }
 	}
+    
+    $DB_CONN = get_db();
 	
 	// Post controls
 	
@@ -60,7 +71,8 @@
 	
 	function get_paginated_posts($page, $pagesize = null) {
 		global $_CONFIG;
-		$conn = get_db();
+		global $DB_CONN;
+        $conn = $DB_CONN;
 		
 		if($pagesize == null) {
 			$pagesize = $_CONFIG["posts"]["paginated_posts"];
@@ -88,7 +100,8 @@
 	
 	function get_max_page() {
 		global $_CONFIG;
-		$conn = get_db();
+		global $DB_CONN;
+        $conn = $DB_CONN;
 		if($result = mysqli_query($conn, "SELECT COUNT(DISTINCT(`PostId`)) AS `PostCount` FROM `Posts` WHERE `PostTypeId` = 1;")) {
 			$row = $result->fetch_assoc();
 			return ceil($row["PostCount"] / $_CONFIG["posts"]["paginated_posts"]);
@@ -99,7 +112,8 @@
 	}
 	
 	function get_single_post($post_id) {
-		$conn = get_db();
+		global $DB_CONN;
+        $conn = $DB_CONN;
 		
 		// Escaped because even though .htaccess only redirects when the param is a number, it's entirely
 		// possible to visit the page directly.
@@ -132,7 +146,8 @@
 	}
     
     function get_auth_level($uid) {
-        $conn = get_db();
+        global $DB_CONN;
+        $conn = $DB_CONN;
         
         $uid = mysqli_real_escape_string($conn, $uid);
         
@@ -156,7 +171,8 @@
 	}
 	
 	function get_user_details($id) {
-		$conn = get_db();
+		global $DB_CONN;
+        $conn = $DB_CONN;
 		$id = mysqli_real_escape_string($conn, $id);
 		if($result = mysqli_query($conn, "SELECT * FROM `Users` WHERE `UserId` = $id LIMIT 1;")) {
 			if(mysqli_num_rows($result) > 0 && $row = $result->fetch_assoc()) {
@@ -203,7 +219,8 @@
 	}
 	
 	function validate_credentials($email, $password) {
-		$conn = get_db();
+		global $DB_CONN;
+        $conn = $DB_CONN;
 		$email = mysqli_real_escape_string($conn, $email);
 		if($result = mysqli_query($conn, "SELECT * FROM `Users` WHERE `Email` = '$email' LIMIT 1;")) {
 			while($row = $result->fetch_assoc()) {
@@ -221,7 +238,8 @@
 	}
 	
 	function create_user($email, $username, $password, $auth = 1) {
-		$conn = get_db();
+		global $DB_CONN;
+        $conn = $DB_CONN;
 		$email = mysqli_real_escape_string($conn, $email);
 		$username = mysqli_real_escape_string($conn, $username);
 		$result = mysqli_query($conn, "SELECT * FROM `Users` WHERE `Email` = '$email';");
@@ -242,7 +260,8 @@
 	}
 	
 	function change_password($user_id, $new_pass) {
-		$conn = get_db();
+		global $DB_CONN;
+        $conn = $DB_CONN;
 		$salt = generate_salt(32);
 		$hash = hash_pbkdf2('sha256', $new_pass, $salt, 1000, 0);
 		if($result = mysqli_query($conn, "UPDATE `Users` SET `Salt` = '$salt', `Password` = '$hash' WHERE `UserId` = $user_id LIMIT 1;")) {
@@ -256,7 +275,8 @@
 	
 	function get_paginated_users($page, $pagesize) {
 		global $_CONFIG;
-		$conn = get_db();
+		global $DB_CONN;
+        $conn = $DB_CONN;
 		
 		$page = mysqli_real_escape_string($conn, $page);
 		
@@ -283,7 +303,8 @@
     
     // Blocking controls
     function get_blocked_users() {
-        $conn = get_db();
+        global $DB_CONN;
+        $conn = $DB_CONN;
         
         $users = [];
         
@@ -298,7 +319,8 @@
     }
     
     function get_blocked_user($ip_address) {
-        $conn = get_db();
+        global $DB_CONN;
+        $conn = $DB_CONN;
         
         $ip_address = mysqli_real_escape_string($conn, $ip_address);
         
@@ -311,7 +333,8 @@
     }
     
     function add_block($ip_address, $reason) {
-        $conn = get_db();
+        global $DB_CONN;
+        $conn = $DB_CONN;
         
         $ip_address = mysqli_real_escape_string($conn, $ip_address);
         $reason = mysqli_real_escape_string($conn, $reason);
@@ -325,7 +348,8 @@
     }
     
     function delete_block($block_id) {
-        $conn = get_db();
+        global $DB_CONN;
+        $conn = $DB_CONN;
         
         $block_id = mysqli_real_escape_string($conn, $block_id);
         

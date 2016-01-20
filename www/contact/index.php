@@ -16,12 +16,20 @@
 	<div class="component-right">
 		<div class="container container-padded">
 			<h3>Get in touch</h3>
-			<p>You can get in touch with me in a number of ways and places. In order of preference:
-			<ul>
-				<li>Send me an email: <a href="mailto:hello@artofcode.co.uk">hello@artofcode.co.uk</a></li>
-				<li>Jump into a <a href="http://chat.stackexchange.com/">Stack Exchange chatroom</a></li>
-				<li>You can probably find another email address from <a href="https://github.com/ArtOfCode-">GitHub</a>, if you know where to look</li>
-			</ul></p>
+			<p>You can get in touch using any of the links below.</p>
+            <ul>
+                <?php if(get_config_value("links", "email")) { ?>
+                    <li>Email: <a href="mailto:<?php echo get_config_value("links", "email"); ?>"><?php echo get_config_value("links", "email"); ?></a></li>
+                <?php } if(get_config_value("links", "stack")) { ?>
+                    <li><a href="<?php echo get_config_value("links", "stack"); ?>">Stack Exchange</a></li>
+                <?php } if(get_config_value("links", "github")) { ?>
+                    <li><a href="<?php echo get_config_value("links", "github"); ?>">GitHub</a></li>
+                <?php } if(get_config_value("links", "fb")) { ?>
+                    <li><a href="<?php echo get_config_value("links", "fb"); ?>">Facebook</a></li>
+                <?php } if(get_config_value("links", "twitter")) { ?>
+                    <li><a href="<?php echo get_config_value("links", "twitter"); ?>">Twitter</a></li>
+                <?php } ?>
+            </ul>
 		</div>
 	</div>
 	

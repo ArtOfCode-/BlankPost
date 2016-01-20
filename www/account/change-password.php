@@ -2,14 +2,14 @@
 	require_once($_SERVER["DOCUMENT_ROOT"] . "/../includes/base.php");
 	
 	if(!is_logged_in()) {
-		http_response_code(302);
+		http_response_code(307);
 		header("Location: /login");
 	}
 	
 	$id = get_user_id();
 	$user = get_user_details($id);
 	if($user === null) {
-		http_response_code(404);
+		http_response_code(409);
 		header("Location: /error/409/no-user");
 	}
 ?>
