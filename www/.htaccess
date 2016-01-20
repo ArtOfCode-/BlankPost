@@ -1,0 +1,36 @@
+DirectoryIndex index.php
+
+ErrorDocument 403 /error/403/access-denied
+ErrorDocument 404 /error/404/not-found
+ErrorDocument 500 /error/500/server-error
+ErrorDocument 503 /error/503/maintenance
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+RewriteRule ^posts/([0-9\-]+) /posts/display.php?id=$1 [NC,L]
+RewriteRule ^posts/comments/([a-z]+)$ /posts/comments/$1.php [NC,L]
+
+RewriteRule ^error/([0-9\-]+) /error/display.php?type=$1 [NC,L]
+
+RewriteRule ^admin/([a-z\-]+)/([a-z\-]+)$ /admin/$1/$2.php [NC,L]
+RewriteRule ^admin/([a-z\-]+)/([a-z\-]+)/([0-9]+) /admin/$1/$2.php?id=$3 [NC,L]
+
+RewriteRule ^login/([a-z\-]+)$ /login/$1.php [NC,L]
+
+RewriteRule ^account/([a-z\-]+)$ /account/$1.php [NC,L]
+
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType image/* "access plus 1 week"
+	ExpiresByType text/javascript "access plus 1 week"
+	ExpiresByType text/css "access plus 1 week"
+</IfModule>
+
+
+# Defines Python execution method
+RewriteRule ^(.+)\.py$ /bin/python/py.php [NC,L]
+RewriteRule ^(.+)\.spy$ /bin/python/py.php [NC,L]
